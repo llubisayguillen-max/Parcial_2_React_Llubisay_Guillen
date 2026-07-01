@@ -41,14 +41,14 @@ function App() {
                 }
               />
 
-              <Route
-                path="libros"
-                element={
-                  <PrivateRoute role="admin">
-                    <Libros />
-                  </PrivateRoute>
-                }
-              />
+            <Route
+              path="libros"
+              element={
+                <PrivateRoute>
+                  <Libros />
+                </PrivateRoute>
+              }
+            />
 
             </Route>
 

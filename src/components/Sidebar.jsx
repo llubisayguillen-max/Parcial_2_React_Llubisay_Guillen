@@ -7,7 +7,8 @@ import { FaHome, FaUsers, FaBook, FaSignOutAlt } from "react-icons/fa";
 import "../styles/sidebar.css";
 
 function Sidebar() {
-  const { logout } = useContext(AuthContext);
+  const { logout, user } = useContext(AuthContext);
+  const esAdmin = user?.role === "admin";
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -33,15 +34,17 @@ function Sidebar() {
           <span>Inicio</span>
         </NavLink>
 
-        <NavLink
-          to="/dashboard/autores"
-          className={({ isActive }) =>
-            isActive ? "link active" : "link"
-          }
-        >
-          <FaUsers />
-          <span>Autores</span>
-        </NavLink>
+          {esAdmin && (
+            <NavLink
+              to="/dashboard/autores"
+              className={({ isActive }) =>
+                isActive ? "link active" : "link"
+              }
+            >
+              <FaUsers />
+              <span>Autores</span>
+            </NavLink>
+          )}
 
         <NavLink
           to="/dashboard/libros"
