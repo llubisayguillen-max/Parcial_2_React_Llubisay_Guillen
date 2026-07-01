@@ -32,9 +32,23 @@ function App() {
             >
 
               {/* RUTAS INTERNAS */}
-              <Route index element={<Dashboard />} />
-              <Route path="autores" element={<Autores />} />
-              <Route path="libros" element={<Libros />} />
+              <Route
+                path="autores"
+                element={
+                  <PrivateRoute role="admin">
+                    <Autores />
+                  </PrivateRoute>
+                }
+              />
+
+              <Route
+                path="libros"
+                element={
+                  <PrivateRoute role="admin">
+                    <Libros />
+                  </PrivateRoute>
+                }
+              />
 
             </Route>
 

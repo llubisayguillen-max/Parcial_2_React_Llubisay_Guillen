@@ -1,7 +1,14 @@
 import { useContext, useState } from "react";
 import { LibraryContext } from "../context/LibraryContext";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Autores() {
+  const { user } = useContext(AuthContext);
+    {user?.rol === "admin" && (
+    <form onSubmit={handleSubmit} className="mb-3">
+      ...
+    </form>
+  )}
 
   const { autores, agregarAutor, eliminarAutor, editarAutor } = useContext(LibraryContext);
 
@@ -97,21 +104,29 @@ export default function Autores() {
               <>
                 <span>{a.nombre}</span>
 
-                <div>
-                  <button
-                    className="btn btn-warning btn-sm me-2"
-                    onClick={() => iniciarEdicion(a)}
-                  >
-                    ✏️
-                  </button>
+                {user?.rol === "admin" && (
+                  <div>
+                    <button
+                      type="button"
+                      className="btn btn-warning btn-sm me-2"
+                      onClick={() => iniciarEdicion(a)}
+                    >
+                      ✏️
+                    </button>
 
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() => eliminarAutor(a.id)}
-                  >
-                    ❌
-                  </button>
-                </div>
+                    <button
+                      type="button"
+                      className="btn btn-danger btn-sm"
+                      onClick={() => {
+                        if (window.confirm("¿Eliminar autor?")) {
+                          eliminarAutor(a.id);
+                        }
+                      }}
+                    >
+                      ❌
+                    </button>
+                  </div>
+                )}
               </>
             )}
 

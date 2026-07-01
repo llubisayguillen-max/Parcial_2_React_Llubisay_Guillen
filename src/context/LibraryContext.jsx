@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import autoresData from "../data/autores.json";
 import librosData from "../data/libros.json";
 
@@ -6,41 +6,64 @@ export const LibraryContext = createContext();
 
 export const LibraryProvider = ({ children }) => {
 
-  const [autores, setAutores] = useState(autoresData);
-  const [libros, setLibros] = useState(librosData);
+  //  CARGA INICIAL DESDE LOCALSTORAGE O JSON
+  const [autores, setAutores] = useState(() => {
+    const data = localStorage.getItem("autores");
+    return data ? JSON.parse(data) : autoresData;
+  });
 
-  //AUTORES
+  const [libros, setLibros] = useState(() => {
+    const data = localStorage.getItem("libros");
+    return data ? JSON.parse(data) : librosData;
+  });
+
+  //GUARDAR AUTOMÁTICAMENTE EN LOCALSTORAGE
+  useEffect(() => {
+    localStorage.setItem("autores", JSON.stringify(autores));
+  }, [autores]);
+
+  useEffect(() => {
+    localStorage.setItem("libros", JSON.stringify(libros));
+  }, [libros]);
+
+  // ================= AUTORES =================
 
   const agregarAutor = (nombre) => {
     if (!nombre.trim()) return;
+
+    // evitar duplicados
+    if (autores.some(a => a.nombre.toLowerCase() === nombre.toLowerCase())) {
+      alert("El autor ya existe");
+      return;
+    }
 
     const nuevoAutor = {
       id: Date.now(),
       nombre
     };
 
-    setAutores([...autores, nuevoAutor]);
+    setAutores(prev => [...prev, nuevoAutor]);
   };
 
-  const editarAutor = (id, nombre) => {
-    setAutores(
-      autores.map(a =>
-        a.id === id ? { ...a, nombre } : a
+  const editarAutor = (id, nuevoNombre) => {
+    setAutores(prev =>
+      prev.map(a =>
+        a.id === id ? { ...a, nombre: nuevoNombre } : a
       )
     );
   };
 
   const eliminarAutor = (id) => {
-    // eliminar 
-    setLibros(libros.filter(l => l.autorId !== id));
-    setAutores(autores.filter(a => a.id !== id));
+    // eliminar libros relacionados
+    setLibros(prev => prev.filter(l => l.autorId !== id));
+    setAutores(prev => prev.filter(a => a.id !== id));
   };
 
   const obtenerAutorPorId = (id) => {
     return autores.find(a => a.id === id);
   };
 
-  //LIBROS
+  //LIBROS =================
 
   const agregarLibro = (titulo, autorId) => {
     if (!titulo.trim() || !autorId) return;
@@ -51,12 +74,12 @@ export const LibraryProvider = ({ children }) => {
       autorId: Number(autorId)
     };
 
-    setLibros([...libros, nuevoLibro]);
+    setLibros(prev => [...prev, nuevoLibro]);
   };
 
   const editarLibro = (id, titulo, autorId) => {
-    setLibros(
-      libros.map(l =>
+    setLibros(prev =>
+      prev.map(l =>
         l.id === id
           ? { ...l, titulo, autorId: Number(autorId) }
           : l
@@ -65,15 +88,14 @@ export const LibraryProvider = ({ children }) => {
   };
 
   const eliminarLibro = (id) => {
-    setLibros(libros.filter(l => l.id !== id));
+    setLibros(prev => prev.filter(l => l.id !== id));
   };
 
   const obtenerLibroPorId = (id) => {
     return libros.find(l => l.id === id);
   };
 
-
-  // VALOR GLOBAL
+  // ================= PROVIDER =================
 
   return (
     <LibraryContext.Provider

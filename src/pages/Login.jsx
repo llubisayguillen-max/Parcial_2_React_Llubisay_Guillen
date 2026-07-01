@@ -1,6 +1,5 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { usuarios } from "../data/usuarios";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/login.css";
 
@@ -19,24 +18,17 @@ function Login() {
     }
   }, [user]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    const encontrado = usuarios.find(
-      (u) => u.user === email && u.pass === password
-    );
+  const ok = login(email, password);
 
-    if (encontrado) {
-      login({
-        email: encontrado.user,
-        role: encontrado.rol
-      });
-
-      navigate("/dashboard");
-    }else {
-      setError("Correo o contraseña incorrectos");
-    }
-  };
+  if (ok) {
+    navigate("/dashboard");
+  } else {
+    setError("Correo o contraseña incorrectos");
+  }
+};
 
   return (
     <div className="login-container">
