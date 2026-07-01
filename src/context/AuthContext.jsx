@@ -1,25 +1,24 @@
-import { createContext, useState, useContext } from "react";
-import { usuarios } from "../data/usuarios";
+import { createContext, useState } from "react";
 
-const AuthContext = createContext();
+export const AuthContext = createContext(); 
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
 
-  const login = (username, password) => {
-    const usuarioEncontrado = usuarios.find(
-      (u) => u.user === username && u.pass === password
-    );
+  const login = (usuario) => {
+    const userData = {
+      email: usuario.user,
+      role: usuario.rol
+    };
 
-    if (usuarioEncontrado) {
-      setUser(usuarioEncontrado);
-      return true;
-    }
-
-    return false;
+    setUser(userData);
+    localStorage.setItem("user", JSON.stringify(userData));
   };
 
   const logout = () => {
+    localStorage.removeItem("user");
     setUser(null);
   };
 
@@ -28,6 +27,4 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-};
-
-export const useAuth = () => useContext(AuthContext);
+}

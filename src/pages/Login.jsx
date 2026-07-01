@@ -1,63 +1,104 @@
-import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { usuarios } from "../data/usuarios";
+import { AuthContext } from "../context/AuthContext";
+import "../styles/login.css";
 
-const Login = () => {
-  const { login } = useAuth();
+function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const { user, login } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
-    username: "",
-    password: ""
-  });
-
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    });
-  };
+  // Si ya está logueado va al dash
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, [user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!form.username || !form.password) {
-      alert("Completa todos los campos");
-      return;
-    }
+    const encontrado = usuarios.find(
+      (u) => u.user === email && u.pass === password
+    );
 
-    const ok = login(form.username, form.password);
+    if (encontrado) {
+      login({
+        email: encontrado.user,
+        role: encontrado.rol
+      });
 
-    if (ok) {
       navigate("/dashboard");
-    } else {
-      alert("Usuario o contraseña incorrectos");
+    }else {
+      setError("Correo o contraseña incorrectos");
     }
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="login-container">
+      <div className="login-card">
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          placeholder="Usuario"
-          onChange={handleChange}
-        />
+        <img src="/assets/usr.png" alt="Usuario" className="login-img" />
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Contraseña"
-          onChange={handleChange}
-        />
+        <h2>Iniciar sesión</h2>
 
-        <button type="submit">Ingresar</button>
-      </form>
+        {error && (
+          <div className="alert alert-danger">{error}</div>
+        )}
+
+        <form onSubmit={handleSubmit}>
+
+          <div className="mb-3">
+            <label className="form-label">Correo electrónico</label>
+            <input
+              type="email"
+              className="form-control"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="off"
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Contraseña</label>
+            <input
+              type="password"
+              className="form-control"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="off"
+            />
+          </div>
+
+          <div className="d-grid gap-2">
+            <button type="submit" className="btn btn-primary">
+              Ingresar
+            </button>
+          </div>
+
+          <div className="text-center mt-4 text-muted small">
+            <i className="bi bi-info-circle me-1"></i>
+            ¿No tienes una cuenta?{" "}
+            <span className="fw-semibold">
+              Contacta con el administrador
+            </span>
+          </div>
+
+        </form>
+
+        <p className="text-center mt-3 text-muted">
+          Biblioteca Escolar - Sistema de Gestión
+        </p>
+
+      </div>
     </div>
   );
-};
+}
 
 export default Login;
