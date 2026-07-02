@@ -1,18 +1,17 @@
-/*   FONDO GENERAL*/
+/*FONDO GENERAL*/
 body {
     min-height: 100vh;
     font-family: Arial, sans-serif;
 
     background:
-        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        linear-gradient(rgba(129, 99, 139, 0.6), rgba(182, 149, 192, 0.6)),
         url('/assets/images/biblioteca.png') no-repeat center center fixed;
 
     background-size: cover;
-
     margin: 0;
 }
 
-/*CONTENEDOR LOGIN*/
+/*CONTENEDOR*/
 .login-container {
     width: 100%;
     max-width: 550px;
@@ -27,33 +26,61 @@ body {
     margin: 0 auto;
 }
 
-/*CARD LOGIN*/
+/*CARD*/
 .login-card {
-    background-color: rgba(255, 255, 255, 0.95);
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    background-color: rgba(255, 255, 255, 0.97);
+    padding: 2.5rem;
+    border-radius: 15px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
     width: 100%;
+
+    backdrop-filter: blur(4px);
 }
 
-/*ELEMENTOS INTERNOS*/
+/*TITULO*/
 .login-card h2 {
     text-align: center;
     margin-bottom: 1.5rem;
-    color: #333;
+    color: #81638b;
+    font-weight: bold;
 }
 
+/*INPUTS*/
 .login-card input {
     height: 45px;
     font-size: 1rem;
+
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: 0.2s;
 }
 
+.login-card input:focus {
+    border-color: #81638b;
+    box-shadow: 0 0 0 2px rgba(129, 99, 139, 0.2);
+    outline: none;
+}
+
+/*BOTÓN*/
 .login-card button {
     height: 45px;
     font-size: 1rem;
     font-weight: bold;
+
+    background-color: #81638b;
+    border: none;
+    border-radius: 8px;
+    color: white;
+
+    transition: 0.2s;
 }
 
+.login-card button:hover {
+    background-color: #6d5376;
+}
+
+/*LOGO*/
 .login-card img {
     display: block;
     margin: 0 auto 1rem auto;

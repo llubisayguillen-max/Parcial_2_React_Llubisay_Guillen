@@ -1,59 +1,70 @@
 .sidebar {
   width: 240px;
-  min-height: 100vh;  
-  background: #0f172a;
-  color: white;
+  min-height: 100vh;
+  background: #530b69;
+  color: #81638b;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 20px;
 }
 
+/* LOGO */
 .logo {
   font-size: 20px;
   margin-bottom: 30px;
+  font-weight: bold;
+  color: #81638b;
 }
 
+/* MENU */
 .menu {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
+/* LINKS */
 .link {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 10px;
   text-decoration: none;
-  color: #cbd5e1;
+  color: #f5eff7; 
   border-radius: 8px;
-  transition: 0.2s;
+  transition: 0.2s ease;
 }
 
+/* HOVER */
 .link:hover {
-  background: #1e293b;
+  background: #a27bb3;
   color: white;
+  transform: translateX(3px);
 }
 
+/* ACTIVO */
 .active {
-  background: #2563eb;
+  background: #81638b;
   color: white;
+  font-weight: 500;
 }
 
+/* LOGOUT */
 .logout {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #dc2626;
+  background: #81638b;
   border: none;
   color: white;
   padding: 10px;
   border-radius: 8px;
   cursor: pointer;
   margin-top: 20px;
+  transition: 0.2s;
 }
 
 .logout:hover {
-  background: #b91c1c;
+  background: #6d5376;
 }

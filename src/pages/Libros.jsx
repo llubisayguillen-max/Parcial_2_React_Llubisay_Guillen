@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
 import { LibraryContext } from "../context/LibraryContext";
 import { AuthContext } from "../context/AuthContext";
+import "../styles/libros.css";
 
 export default function Libros() {
   const {
-    libros,
-    autores,
+    libros = [],
+    autores = [],
     agregarLibro,
     editarLibro,
     eliminarLibro
@@ -16,11 +17,9 @@ export default function Libros() {
   const esAdmin = user?.role === "admin";
   const soloLectura = !esAdmin;
 
-  // ================= AGREGAR =================
   const [titulo, setTitulo] = useState("");
   const [autorId, setAutorId] = useState("");
 
-  // ================= EDICIÓN =================
   const [editandoId, setEditandoId] = useState(null);
   const [tituloEditado, setTituloEditado] = useState("");
   const [autorEditado, setAutorEditado] = useState("");
@@ -38,13 +37,13 @@ export default function Libros() {
     setAutorId("");
   };
 
-    const iniciarEdicion = (libro) => {
-      if (soloLectura) return;
+  const iniciarEdicion = (libro) => {
+    if (soloLectura) return;
 
-      setEditandoId(libro.id);
-      setTituloEditado(libro.titulo);
-      setAutorEditado(libro.autorId);
-    };
+    setEditandoId(libro.id);
+    setTituloEditado(libro.titulo);
+    setAutorEditado(libro.autorId);
+  };
 
   const guardarEdicion = (id) => {
     if (!tituloEditado.trim() || !autorEditado) {
@@ -63,122 +62,157 @@ export default function Libros() {
   };
 
   return (
-    <div className="container mt-4">
-      <h2>Libros</h2>
+    <div className="libros-container container mt-4">
+      <h2 className="titulo-seccion">Biblioteca</h2>
 
-      {/* ================= FORM SOLO ADMIN ================= */}
+      {/*FORM ADMIN*/}
       {esAdmin && (
-        <form onSubmit={handleSubmit} className="mb-3">
-          <input
-            className="form-control mb-2"
-            placeholder="Título"
-            value={titulo}
-            onChange={(e) => setTitulo(e.target.value)}
-          />
+        <div className="card shadow formulario-card mb-4">
+          <div className="row g-0 align-items-center">
+            <div className="col-md-8 p-4">
+              <h4 className="mb-3">Agregar Libro</h4>
 
-          <select
-            className="form-control mb-2"
-            value={autorId}
-            onChange={(e) => setAutorId(e.target.value)}
-          >
-            <option value="">Seleccionar autor</option>
-            {autores.map(a => (
-              <option key={a.id} value={a.id}>
-                {a.nombre}
-              </option>
-            ))}
-          </select>
+              <form onSubmit={handleSubmit}>
+                <input
+                  className="form-control mb-3"
+                  placeholder="Título"
+                  value={titulo}
+                  onChange={(e) => setTitulo(e.target.value)}
+                />
 
-          <button className="btn btn-primary">Agregar</button>
-        </form>
+                <select
+                  className="form-control mb-3"
+                  value={autorId}
+                  onChange={(e) => setAutorId(e.target.value)}
+                >
+                  <option value="">Seleccionar autor</option>
+                  {autores.map((a) => (
+                    <option key={a.id} value={a.id}>
+                      {a.nombre}
+                    </option>
+                  ))}
+                </select>
+
+                <button className="btn btn-guardar">
+                  Guardar
+                </button>
+              </form>
+            </div>
+
+            <div className="col-md-4 text-center p-4">
+              <img
+                src="/assets/libros/default.jpg"
+                alt="preview"
+                className="img-fluid preview-img"
+              />
+            </div>
+          </div>
+        </div>
       )}
 
-      {/* ================= LISTA ================= */}
-      <ul className="list-group">
-        {libros.map(l => {
-          const autor = autores.find(a => a.id === l.autorId);
+      {/*LISTA*/}
+      {libros.length === 0 ? (
+        <p>No hay libros cargados</p>
+      ) : (
+        <div className="row">
+          {libros.map((l) => {
+            const autor = autores.find(
+              (a) => String(a.id) === String(l.autorId)
+            );
 
-          return (
-            <li
-              key={l.id}
-              className="list-group-item d-flex justify-content-between align-items-center"
-            >
-              {editandoId === l.id && esAdmin ? (
-                // ================= EDICIÓN (SOLO ADMIN) =================
-                esAdmin && (
-                  <div className="d-flex w-100 align-items-center">
-                    <input
-                      className="form-control me-2"
-                      value={tituloEditado}
-                      onChange={(e) => setTituloEditado(e.target.value)}
-                    />
+            return (
+              <div key={l.id} className="col-md-6 mb-4">
+                <div className="card libro-card shadow-sm h-100">
+                  <div className="row g-0 h-100">
+                    
+                    {/* INFO */}
+                    <div className="col-md-8 p-3 d-flex flex-column justify-content-center">
+                      {editandoId === l.id ? (
+                        <>
+                          <input
+                            className="form-control mb-2"
+                            value={tituloEditado}
+                            onChange={(e) => setTituloEditado(e.target.value)}
+                          />
 
-                    <select
-                      className="form-control me-2"
-                      value={autorEditado}
-                      onChange={(e) => setAutorEditado(e.target.value)}
-                    >
-                      {autores.map(a => (
-                        <option key={a.id} value={a.id}>
-                          {a.nombre}
-                        </option>
-                      ))}
-                    </select>
+                          <select
+                            className="form-control mb-2"
+                            value={autorEditado}
+                            onChange={(e) => setAutorEditado(e.target.value)}
+                          >
+                            {autores.map((a) => (
+                              <option key={a.id} value={a.id}>
+                                {a.nombre}
+                              </option>
+                            ))}
+                          </select>
 
-                    <button
-                      type="button"
-                      className="btn btn-success btn-sm me-2"
-                      onClick={() => guardarEdicion(l.id)}
-                    >
-                      ✔
-                    </button>
+                          <div>
+                            <button
+                              className="btn btn-success btn-sm me-2"
+                              onClick={() => guardarEdicion(l.id)}
+                            >
+                              ✔
+                            </button>
+                            <button
+                              className="btn btn-secondary btn-sm"
+                              onClick={cancelarEdicion}
+                            >
+                              ✖
+                            </button>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <h5 className="libro-titulo">{l.titulo}</h5>
+                          <p className="libro-autor">
+                            {autor?.nombre || "Sin autor"}
+                          </p>
 
-                    <button
-                      type="button"
-                      className="btn btn-secondary btn-sm"
-                      onClick={cancelarEdicion}
-                    >
-                      ✖
-                    </button>
-                  </div>
-                )
-              ) : (
-                <>
-                  <span>
-                    {l.titulo} -{" "}
-                    <strong>{autor?.nombre || "Sin autor"}</strong>
-                  </span>
+                          {!soloLectura && (
+                            <div>
+                              <button
+                                className="btn btn-warning btn-sm me-2"
+                                onClick={() => iniciarEdicion(l)}
+                              >
+                                ✏️
+                              </button>
 
-                  {/* ================= BOTONES SOLO ADMIN ================= */}
-                  {esAdmin && (
-                    <div>
-                      <button
-                        type="button"
-                        className="btn btn-warning btn-sm me-2"
-                        onClick={() => iniciarEdicion(l)}
-                      >
-                        ✏️
-                      </button>
-
-                      <button
-                        type="button"
-                        className="btn btn-danger btn-sm"
-                        onClick={() => {
-                          if (window.confirm("¿Eliminar libro?")) {
-                            eliminarLibro(l.id);
-                          }
-                        }}
-                      >
-                        ❌
-                      </button>
+                              <button
+                                className="btn btn-danger btn-sm"
+                                onClick={() => {
+                                  if (window.confirm("¿Eliminar libro?")) {
+                                    eliminarLibro(l.id);
+                                  }
+                                }}
+                              >
+                                ❌
+                              </button>
+                            </div>
+                          )}
+                        </>
+                      )}
                     </div>
-                  )}
-                </>
-              )}
-            </li>
-          );
-        })}
-      </ul>
+
+                    {/* IMAGEN */}
+                    <div className="col-md-4 d-flex align-items-center justify-content-center">
+                      <img
+                        src={`/assets/libros/${l.id}.jpg`}
+                        alt="Portada"
+                        className="img-fluid libro-img"
+                        onError={(e) => {
+                          e.target.src = "/assets/libros/default.jpg";
+                        }}
+                      />
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
