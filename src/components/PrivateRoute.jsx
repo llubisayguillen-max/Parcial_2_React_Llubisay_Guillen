@@ -5,12 +5,10 @@ import { AuthContext } from "../context/AuthContext";
 function PrivateRoute({ children, role }) {
   const { user } = useContext(AuthContext);
 
-  //No logueado
   if (!user) {
     return <Navigate to="/" replace />;
   }
 
-  //No tiene permiso
   if (role && user.role !== role) {
     return <Navigate to="/dashboard" replace />;
   }

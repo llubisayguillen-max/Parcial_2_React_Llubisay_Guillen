@@ -1,10 +1,12 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { FaUserGraduate } from "react-icons/fa";
 
 import { FaHome, FaUsers, FaBook, FaSignOutAlt } from "react-icons/fa";
 
 import "../styles/sidebar.css";
+import userImg from "../assets/usr.png";
 
 function Sidebar() {
   const { logout, user } = useContext(AuthContext);
@@ -19,51 +21,64 @@ function Sidebar() {
   return (
     <aside className="sidebar">
 
-      <h2 className="logo">Biblioteca</h2>
+  {/* HEADER DEL SIDEBAR */}
+  <div className="sidebar-header">
 
-      <nav className="menu">
+    <div className="user-section">
+      <FaUserGraduate className="sidebar-icon-user" />
 
-        <NavLink
-          to="/dashboard"
-          end
-          className={({ isActive }) =>
-            isActive ? "link active" : "link"
-          }
-        >
-          <FaHome />
-          <span>Inicio</span>
-        </NavLink>
+      <span className="user-email">
+        {user?.email || user?.user}
+      </span>
+    </div>
 
-          {esAdmin && (
-            <NavLink
-              to="/dashboard/autores"
-              className={({ isActive }) =>
-                isActive ? "link active" : "link"
-              }
-            >
-              <FaUsers />
-              <span>Autores</span>
-            </NavLink>
-          )}
+  </div>
 
-        <NavLink
-          to="/dashboard/libros"
-          className={({ isActive }) =>
-            isActive ? "link active" : "link"
-          }
-        >
-          <FaBook />
-          <span>Libros</span>
-        </NavLink>
+  {/* MENU */}
+  <nav className="menu">
 
-      </nav>
+    <NavLink
+      to="/dashboard"
+      end
+      className={({ isActive }) =>
+        isActive ? "link active" : "link"
+      }
+    >
+      <FaHome />
+      <span>Home</span>
+    </NavLink>
 
-      <button className="logout" onClick={handleLogout}>
-        <FaSignOutAlt />
-        <span>Cerrar sesión</span>
-      </button>
+    {esAdmin && (
+      <NavLink
+        to="/dashboard/autores"
+        className={({ isActive }) =>
+          isActive ? "link active" : "link"
+        }
+      >
+        <FaUsers />
+        <span>Autores</span>
+      </NavLink>
+    )}
 
-    </aside>
+    <NavLink
+      to="/dashboard/libros"
+      className={({ isActive }) =>
+        isActive ? "link active" : "link"
+      }
+    >
+      <FaBook />
+      <span>Libros</span>
+    </NavLink>
+
+  </nav>
+
+  {/* LOGOUT */}
+  <button className="logout" onClick={handleLogout}>
+    <FaSignOutAlt />
+    <span>Cerrar sesión</span>
+  </button>
+
+</aside>
   );
 }
 

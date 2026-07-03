@@ -2,6 +2,8 @@ import { useContext, useState } from "react";
 import { LibraryContext } from "../context/LibraryContext";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/libros.css"; 
+import userImg from "../assets/autor.png";
+import autorDetalleImg from "../assets/autor_detalle.png";
 
 export default function Autores() {
   const { user } = useContext(AuthContext);
@@ -59,7 +61,7 @@ export default function Autores() {
 
   return (
     <div className="libros-container container mt-4">
-      <h2 className="titulo-seccion">Autores</h2>
+    <h2 className="titulo-seccion text-center">Autores</h2>
 
       {/*FORM ADMIN */}
       {esAdmin && (
@@ -83,12 +85,9 @@ export default function Autores() {
               </form>
             </div>
 
+
             <div className="col-md-4 text-center p-4">
-              <img
-                src="/assets/libros/default.jpg"
-                alt="autor"
-                className="img-fluid preview-img"
-              />
+            <img src={userImg} alt="Autor" className="autor-img" />
             </div>
 
           </div>
@@ -162,10 +161,10 @@ export default function Autores() {
 
                   {/* IMG DECORATIVA */}
                   <div className="col-md-4 d-flex align-items-center justify-content-center">
-                    <img
-                      src="/assets/libros/default.jpg"
-                      alt="autor"
-                      className="img-fluid libro-img"
+                    <img 
+                      src={autorDetalleImg} 
+                      alt="Detalle autor" 
+                      className="img-card-autor"
                     />
                   </div>
 

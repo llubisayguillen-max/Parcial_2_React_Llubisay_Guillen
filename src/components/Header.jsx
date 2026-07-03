@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import "../styles/header.css";
 
 import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 
@@ -15,25 +16,26 @@ function Header() {
 
   return (
     <header className="header">
+      <div className="header-container">
 
-      <div className="header-title">
-        Panel de Gestión
-      </div>
+        <div className="header-title">
+          Biblioteca
+        </div>
 
-      <div className="header-user">
+        <div className="header-user">
+          <FaUserCircle className="icon" />
 
-        <FaUserCircle className="icon" />
-            <div className="user-info">
+          <div className="user-info">
             <span className="email">{user?.user}</span>
             <span className="role">{user?.rol}</span>
-            </div>
+          </div>
 
-        <button className="logout-btn" onClick={handleLogout}>
-          <FaSignOutAlt />
-        </button>
+          <button className="logout-btn" onClick={handleLogout}>
+            <FaSignOutAlt />
+          </button>
+        </div>
 
       </div>
-
     </header>
   );
 }

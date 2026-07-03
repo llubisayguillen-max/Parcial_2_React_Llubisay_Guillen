@@ -21,7 +21,7 @@ function App() {
             {/* PUBLICA */}
             <Route path="/" element={<Login />} />
 
-            {/* DASHBOARD PROTEGIDO CON LAYOUT */}
+            {/* DASHBOARD PROTEGIDO */}
             <Route
               path="/dashboard"
               element={
@@ -31,7 +31,9 @@ function App() {
               }
             >
 
-              {/* RUTAS INTERNAS */}
+              {/*INDEX */}
+              <Route index element={<Dashboard />} />
+
               <Route
                 path="autores"
                 element={
@@ -41,14 +43,14 @@ function App() {
                 }
               />
 
-            <Route
-              path="libros"
-              element={
-                <PrivateRoute>
-                  <Libros />
-                </PrivateRoute>
-              }
-            />
+              <Route
+                path="libros"
+                element={
+                  <PrivateRoute>
+                    <Libros />
+                  </PrivateRoute>
+                }
+              />
 
             </Route>
 

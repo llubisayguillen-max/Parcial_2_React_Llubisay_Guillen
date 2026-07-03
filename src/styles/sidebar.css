@@ -1,3 +1,73 @@
+/*cBLOQUE SUPERIOR */
+.sidebar-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+
+  width: 100%;
+  padding: 10px 0;
+}
+
+.sidebar-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+/* TÍTULO CENTRADO */
+.logo-center {
+  font-size: 22px;
+  font-weight: bold;
+  color: #f5eff7;
+  text-align: center;
+  margin: 0;
+}
+
+/* USUARIO */
+.sidebar-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 40px 40px
+}
+
+.sidebar-icon-user {
+  font-size: 68px;
+  color: #f5eff7;
+
+  margin-top: 80px;
+  margin-bottom: 50px;
+}
+
+/* AVATAR */
+.sidebar-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #81638b;
+  background: white;
+}
+
+.sidebar-icon-user {
+  font-size: 68px;
+  color: #f5eff7;
+}
+
+/* EMAIL */
+.sidebar-email {
+  font-size: 15px;
+  color: #f5eff7;
+  text-align: center;
+  word-break: break-word;
+}
+
 .sidebar {
   width: 240px;
   min-height: 100vh;
@@ -7,14 +77,14 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 20px;
+  color: #f5eff7;
 }
 
-/* LOGO */
 .logo {
   font-size: 20px;
   margin-bottom: 30px;
   font-weight: bold;
-  color: #81638b;
+  color: #f5eff7;
 }
 
 /* MENU */

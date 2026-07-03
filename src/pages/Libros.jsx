@@ -2,6 +2,8 @@ import { useContext, useState } from "react";
 import { LibraryContext } from "../context/LibraryContext";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/libros.css";
+import userImg from "../assets/libro.png";
+import libroDetalleImg from "../assets/libro_detalle.png";
 
 export default function Libros() {
   const {
@@ -63,7 +65,7 @@ export default function Libros() {
 
   return (
     <div className="libros-container container mt-4">
-      <h2 className="titulo-seccion">Biblioteca</h2>
+    <h2 className="titulo-seccion text-center">Libros</h2>
 
       {/*FORM ADMIN*/}
       {esAdmin && (
@@ -100,11 +102,7 @@ export default function Libros() {
             </div>
 
             <div className="col-md-4 text-center p-4">
-              <img
-                src="/assets/libros/default.jpg"
-                alt="preview"
-                className="img-fluid preview-img"
-              />
+            <img src={userImg} alt="Libro" className="libro-img" />
             </div>
           </div>
         </div>
@@ -196,14 +194,11 @@ export default function Libros() {
 
                     {/* IMAGEN */}
                     <div className="col-md-4 d-flex align-items-center justify-content-center">
-                      <img
-                        src={`/assets/libros/${l.id}.jpg`}
-                        alt="Portada"
-                        className="img-fluid libro-img"
-                        onError={(e) => {
-                          e.target.src = "/assets/libros/default.jpg";
-                        }}
-                      />
+                    <img 
+                      src={libroDetalleImg} 
+                      alt="Detalle libro" 
+                      className="img-card-libro"
+                    />
                     </div>
 
                   </div>

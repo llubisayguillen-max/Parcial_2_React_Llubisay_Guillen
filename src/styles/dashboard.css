@@ -1,0 +1,87 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.dashboard-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1e293b;
+}
+
+/* CARDS */
+.cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  flex: 1;
+  min-width: 200px;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* animación */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  border-color: #2563eb;
+}
+
+.card h3 {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.card p {
+  font-size: 28px;
+  font-weight: bold;
+  color: #0f172a;
+}
+
+/* SECCIONES */
+.section {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.section h3 {
+  margin-bottom: 15px;
+  color: #1e293b;
+}
+
+/* LISTAS */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.list-item:hover {
+  background: #f1f5f9;
+}
+
+.list-item strong {
+  color: #0f172a;
+}
+
+.list-item span {
+  color: #64748b;
+}

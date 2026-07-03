@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/login.css";
+import userImg from "../assets/usr.png";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -34,7 +35,7 @@ const handleSubmit = (e) => {
     <div className="login-container">
       <div className="login-card">
 
-        <img src="/assets/usr.png" alt="Usuario" className="login-img" />
+        <img src={userImg} alt="Usuario" className="login-img" />
 
         <h2>Iniciar sesión</h2>
 
@@ -85,7 +86,7 @@ const handleSubmit = (e) => {
         </form>
 
         <p className="text-center mt-3 text-muted">
-          Biblioteca Escolar - Sistema de Gestión
+          Biblioteca - Sistema de Gestión
         </p>
 
       </div>

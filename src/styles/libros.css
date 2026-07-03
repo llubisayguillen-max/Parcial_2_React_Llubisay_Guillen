@@ -122,13 +122,13 @@
   background-color: white;
 }
 
-.btn-guardar {
+.btn.btn-guardar {
   background-color: #81638b;
   color: white;
   border: none;
 }
 
-.btn-guardar:hover {
+.btn.btn-guardar:hover {
   background-color: #6d5376;
 }
 
@@ -154,12 +154,38 @@
 }
 
 /* IMG */
-.libro-img {
-  max-height: 120px;
+.img-card-libro {
+  max-width: 100%; 
+  max-height: 150px; 
   object-fit: contain;
 }
 
 /* PREVIEW */
 .preview-img {
   max-height: 150px;
+}
+
+.autor-img {
+  width: 100%;
+  max-width: 180px;  
+  height: auto;
+  object-fit: contain;
+
+
+  display: block;
+  margin: 0 auto;
+
+
+  opacity: 0.9;
+}
+
+.img-card-autor {
+  max-width: 100%;
+  max-height: 120px;
+  height: auto;
+  width: auto;
+
+  object-fit: contain;
+
+  display: block;
 }
