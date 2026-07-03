@@ -2,33 +2,34 @@ import "../styles/dashboard.css";
 
 function Dashboard() {
 
-  const latestBooks = [
-    { id: 1, title: "Clean Code", author: "Robert C. Martin" },
-    { id: 2, title: "1984", author: "George Orwell" },
-    { id: 3, title: "El Principito", author: "Antoine de Saint-Exupéry" },
-  ];
+const latestBooks = [
+  { id: 5, title: "La ciudad y los perros", author: "Mario Vargas Llosa" },
+  { id: 4, title: "La casa de los espíritus", author: "Isabel Allende" },
+  { id: 3, title: "Ficciones", author: "Jorge Luis Borges" },
+];
 
-  const booksByAuthor = [
-    { author: "George Orwell", count: 5 },
-    { author: "Stephen King", count: 8 },
-    { author: "J.K. Rowling", count: 7 },
-  ];
+const booksByAuthor = [
+  { author: "Gabriel García Márquez", count: 1 },
+  { author: "Julio Cortázar", count: 1 },
+  { author: "Jorge Luis Borges", count: 1 },
+  { author: "Isabel Allende", count: 1 },
+  { author: "Mario Vargas Llosa", count: 1 },
+];
+
 
   return (
     <div className="dashboard">
-
-      <h2 className="dashboard-title">Inicio</h2>
 
       {/* CARDS RESUMEN */}
       <div className="cards">
         <div className="card">
           <h3>Total Libros</h3>
-          <p>120</p>
+          <p>20</p>
         </div>
 
         <div className="card">
           <h3>Autores</h3>
-          <p>35</p>
+          <p>15</p>
         </div>
 
         <div className="card">

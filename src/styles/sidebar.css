@@ -67,6 +67,10 @@
   text-align: center;
   word-break: break-word;
 }
+.user-email {
+  display: block;
+  text-align: center;
+}
 
 .sidebar {
   width: 240px;

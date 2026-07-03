@@ -25,6 +25,7 @@ export default function Libros() {
   const [editandoId, setEditandoId] = useState(null);
   const [tituloEditado, setTituloEditado] = useState("");
   const [autorEditado, setAutorEditado] = useState("");
+  const [libroSeleccionado, setLibroSeleccionado] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,6 +63,13 @@ export default function Libros() {
     setTituloEditado("");
     setAutorEditado("");
   };
+  const abrirModal = (libro) => {
+        setLibroSeleccionado(libro);
+      };
+
+      const cerrarModal = () => {
+        setLibroSeleccionado(null);
+      };
 
   return (
     <div className="libros-container container mt-4">
@@ -120,7 +128,11 @@ export default function Libros() {
 
             return (
               <div key={l.id} className="col-md-6 mb-4">
-                <div className="card libro-card shadow-sm h-100">
+                <div
+                  className="card libro-card shadow-sm h-100"
+                  onClick={() => abrirModal(l)}
+                  style={{ cursor: "pointer" }}
+                >
                   <div className="row g-0 h-100">
                     
                     {/* INFO */}
@@ -208,6 +220,35 @@ export default function Libros() {
           })}
         </div>
       )}
+                {libroSeleccionado && (
+            <div className="modal-overlay" onClick={cerrarModal}>
+              <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+
+                <h3>{libroSeleccionado.titulo}</h3>
+
+                <p className="modal-author">
+                  {autores.find(a => String(a.id) === String(libroSeleccionado.autorId))?.nombre}
+                </p>
+
+                <p className="modal-desc">
+                  Este libro forma parte del catálogo de la biblioteca.
+                  Es una obra destacada dentro del sistema académico.
+                </p>
+
+                <img
+                  src={libroDetalleImg}
+                  alt="detalle"
+                  className="img-fluid mb-3"
+                  style={{ maxHeight: "160px" }}
+                />
+
+                <button className="btn btn-guardar" onClick={cerrarModal}>
+                  Cerrar
+                </button>
+
+              </div>
+            </div>
+          )}
     </div>
   );
 }
